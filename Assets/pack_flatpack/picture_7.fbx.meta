@@ -182,6 +182,7 @@ ModelImporter:
     4300064: lamp
     4300066: Plane
     4300068: controller_1
+    6400000: //RootNode
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -205,7 +206,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 1
@@ -219,7 +220,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 1
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 1
   importAnimation: 0
   copyAvatar: 0
@@ -235,6 +236,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   additionalBone: 0
   userData: 
