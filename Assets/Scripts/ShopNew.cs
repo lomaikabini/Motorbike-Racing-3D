@@ -155,7 +155,7 @@ public class ShopNew : MonoBehaviour {
 		if(isAction) return;
 
 		isAction = true;
-		choisePopupLabel.text = "Use "+bikeNames[curBike]+" to play?";
+		choisePopupLabel.text = "Use this bike to play?";//"Use "+bikeNames[curBike]+" to play?";
 		choisePopup.SetActive (true);
 	}
 	public void buyBike()

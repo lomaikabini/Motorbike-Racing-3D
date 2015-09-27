@@ -69,7 +69,7 @@ public class BikeManager : MonoBehaviour {
 			extrabike.shiftDelay = 0f;
 			extrabike.gameObject.SetActive(false);
 		}
-		for(int i = 0; i < bikePositions.childCount; i++)
+		for(int i = 0; i < 6/*bikePositions.childCount*/; i++)
 		{
 			if(GameObject.Find("Motorbike "+(i+1).ToString()) == null) continue;
 
@@ -81,7 +81,10 @@ public class BikeManager : MonoBehaviour {
 			bikeGui.speedUI = speedUI;
 			bikeGui.gearstUI = gearstUI;
 			bikeGui.nitroUI = nitroUI;
-			Transform pos = bikePositions.FindChild("Position "+(i+1).ToString()).transform; 
+			int idPos = Random.Range(1,bikePositions.childCount+1);
+			idPos = 4;
+			Transform pos = bikePositions.FindChild("Position "+(idPos).ToString()).transform; 
+			//Transform pos = bikePositions.FindChild("Position "+(i+1).ToString()).transform; 
 			b.rigidbody.velocity = Vector3.zero;
 			b.transform.position = pos.position ;
 			b.transform.rotation = pos.rotation;
@@ -164,10 +167,14 @@ public class BikeManager : MonoBehaviour {
 	public void OnReset()
 	{
 		Transform tr;
-		if(data.extraBike && data.currentBike == bikesContols.Count - 1 )
+		int idPos = Random.Range(1,bikePositions.childCount+1);
+		if (data.extraBike && data.currentBike == bikesContols.Count - 1)
 			tr = bikePositions.FindChild ("Position Extra").transform;
-		else
-			tr = bikePositions.FindChild ("Position " + (data.currentBike + 1).ToString ()).transform;
+		else 
+		{
+			//tr = bikePositions.FindChild ("Position " + (data.currentBike + 1).ToString ()).transform;
+			tr = bikePositions.FindChild ("Position " + (idPos).ToString ()).transform;
+		}
 		bikesContols [data.currentBike].transform.position = tr.position;
 		bikesContols [data.currentBike].transform.rotation = tr.rotation;
 		bikesContols [data.currentBike].rigidbody.velocity = Vector3.zero;

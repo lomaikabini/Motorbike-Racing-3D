@@ -554,9 +554,6 @@ public class BikeControl : MonoBehaviour
 			}
 		}
 		
-		
-		
-		
 		steer2 = Mathf.LerpAngle(steer2, steer * -bikeSetting.maxSteerAngle, Time.deltaTime * 10.0f);
 		
 		MotorRotation = Mathf.LerpAngle(MotorRotation, steer2 * bikeSetting.maxTurn * (Mathf.Clamp(speed / 200, 0.0f, 1.0f)), Time.deltaTime * 5.0f);
@@ -624,9 +621,7 @@ public class BikeControl : MonoBehaviour
 		bool floorContact = false;
 		int currentWheel = 0;
 		// calc rpm from current wheel speed and do some updating
-		
-		
-		
+
 		
 		
 		foreach (WheelComponent w in wheels)
