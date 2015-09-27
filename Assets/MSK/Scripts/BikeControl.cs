@@ -414,9 +414,29 @@ public class BikeControl : MonoBehaviour
 			shiftDelay = now + 0.1f;
 		}
 	}
-	
+	private float fixDegrees(float iVal)
+	{
+		float oVal = iVal;
+		while(oVal < 0) oVal += 360;
+		while(oVal > 360) oVal -= 360;
+		if(oVal > 180) oVal -= 360;
+		return oVal;
+	}
+	private float flipRotate = 0.0f;
+	private bool OnGround = false;
+
 	void Update()
 	{
+		OnGround = false;
+
+		foreach(WheelComponent Wheel in wheels)
+		{
+			if(Wheel.collider.isGrounded){
+				OnGround = true;
+				break;
+			}
+		}
+
 		if(moveUp)
 		{
 			if(moveUpValue + stepForValue <=1f)
@@ -565,9 +585,29 @@ public class BikeControl : MonoBehaviour
 		if (!crash)
 		{
 			
-			Quaternion deltaRotation = Quaternion.Euler(0, 0, -transform.localEulerAngles.z + (MotorRotation));
-			rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+//			Quaternion deltaRotation = Quaternion.Euler(0, 0, -transform.localEulerAngles.z + (MotorRotation));
+//			rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+			flipRotate = (transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270) ? 180.0f : 0.0f;
 			
+			Quaternion deltaRotation = Quaternion.Euler(0f, 0f, -fixDegrees(transform.localEulerAngles.z) + (MotorRotation));
+			
+			
+			float NewX = Mathf.Clamp(fixDegrees(rigidbody.rotation.eulerAngles.x), -60f, 60f);
+			
+			if(OnGround){
+				NewX = rigidbody.rotation.eulerAngles.x;
+			}
+			
+			rigidbody.MoveRotation(Quaternion.Euler(NewX, fixDegrees(rigidbody.rotation.eulerAngles.y), fixDegrees(rigidbody.rotation.eulerAngles.z)) * deltaRotation);
+			
+			// 1 tilt forward, -1 tilt back
+			Vector3 AngVelo = rigidbody.angularVelocity;
+			float NewAngularVeloX = ((Mathf.InverseLerp(60f, -60f, NewX) * 2) - 1); // -1 - 1
+			if(!OnGround){
+				AngVelo.x = (AngVelo.x * (Mathf.Abs(NewAngularVeloX) >= 0.4f ? NewAngularVeloX * 1.5f : 1f));
+				
+				rigidbody.angularVelocity = AngVelo;
+			}
 		}
 		// handle automatic shifting
 		if (bikeSetting.automatic && (currentGear == 1) && (accel < 0.0f))
