@@ -315,6 +315,7 @@ public class BikeControl : MonoBehaviour
 	
 	void Start()
 	{
+		data = GameData.Get ();
 		wheelParticle.enableEmission = false;
 		
 		SteerRotation = bikeSetting.bikeSteer.localRotation;
@@ -424,9 +425,11 @@ public class BikeControl : MonoBehaviour
 	}
 	private float flipRotate = 0.0f;
 	private bool OnGround = false;
-
+	GameData data;
 	void Update()
 	{
+		if (GoTo.currentScene != "main_game_megaCity")
+			return;
 		OnGround = false;
 
 		foreach(WheelComponent Wheel in wheels)
