@@ -142,7 +142,10 @@ public class BikeManager : MonoBehaviour {
 	public void Reset()
 	{
 		for(int  i = 0; i< bikesContols.Count; i++)
+		{
 			bikesContols[i].gameObject.SetActive(true);
+			bikesContols[i].transform.position = Vector3.zero;
+		}
 //		if(isExtra)
 //			removeExtraSpeed();
 		releaseAll ();

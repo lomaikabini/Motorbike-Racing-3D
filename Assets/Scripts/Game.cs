@@ -11,6 +11,7 @@ public class Game : MonoBehaviour {
 	public GameObject firstBike;
 	public GameObject secondBike;
 	public GameObject fallDownMessage;
+	public GameObject loadScreen;
 	public Material[] bikeMaterials;
 
 	public GameObject popup;
@@ -126,7 +127,7 @@ public class Game : MonoBehaviour {
 		circleRemaining -= data.GetFoundItemsCount ();
 		hideFoundItems ();
 		showScore ();
-		StartCoroutine (checkBanner ());
+		//StartCoroutine (checkBanner ());
 	}
 
 	IEnumerator checkBanner()
@@ -400,6 +401,7 @@ public class Game : MonoBehaviour {
 	}
 	public void mainMenu()
 	{
+		loadScreen.SetActive (true);
 		GameObject.Find ("BikeManager").GetComponent<BikeManager> ().Reset ();
 		Time.timeScale = 1f;
 		isRunning = false;
